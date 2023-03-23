@@ -12,8 +12,12 @@ app.use(cors());
 const PORT = 3000;  
 app.use('/client', express.static(path.join(__dirname, 'client')));
 
-const MESHULAM_PAGE_CODE = 'b73ca07591f8';
-// const MESHULAM_API_KEY = 'b60e1d4cbd29';
+const MESHULAM_PAGE_CODE =  'b73ca07591f8'; //generic-page
+    //credit: '0b7a16e03b25'
+    //google-pay: '77a2993849cd'
+    //apple-pay: '9eeea7787d67'
+    //bit: 'e20c9458e9f3'
+    //bit QR: '39bf173ce7d0'
 const MESHULAM_USER_ID = '4ec1d595ae764243';
 const MESHULAM_API_URL = 'https://sandbox.meshulam.co.il/api/light/server/1.0/';
 
@@ -23,7 +27,6 @@ app.post('/api/payment/getPaymentLink', async (req, res) => {
   const formData = {
     pageCode: MESHULAM_PAGE_CODE,
     userId: MESHULAM_USER_ID,
-    // apiKey: MESHULAM_API_KEY,
     sum: sum.toString(),
     paymentNum: paymentsNum.toString(),
     description: description,
