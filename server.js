@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const axios = require('axios');
+const path = require('path');
 const FormData = require('form-data');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const PORT = 3000;  
+app.use('/client', express.static(path.join(__dirname, 'client')));
 
 const MESHULAM_PAGE_CODE = 'b73ca07591f8';
 // const MESHULAM_API_KEY = 'b60e1d4cbd29';
@@ -25,17 +27,20 @@ app.post('/api/payment/getPaymentLink', async (req, res) => {
     sum: sum.toString(),
     paymentNum: paymentsNum.toString(),
     description: description,
-    transactionTypes: ['1', '6', '13', '14'], //[Credit, Bit, ApplePay, GooglePay] If you don't need one of them, give it a value of '1'
-    successUrl: "https://localhost:44374/Client/success.html?success=1",
-    cancelUrl: "https://localhost:44374/Client/failure.html?failure=1",
-    // With the help of cFields you can transfer information that will be retrieved on the success page (limited to 5 cFields)
+    transactionTypes: ['1', '6', '13', '14'],
+        //[Credit, Bit, ApplePay, GooglePay]
+        //If you don't need one of them, give it a value of '1'
+    successUrl: "http://localhost:3000/client/success.html?success=1",
+    cancelUrl: "http://localhost:3000/client/failure.html?failure=1",
+        // With the help of cFields you can transfer information that will be retrieved on the success page (limited to 5 cFields)
     cField1: MESHULAM_PAGE_CODE,
     cField2: 'blabla',
     cField3: 'blabla',
     cField4: 'blabla',
     cField5: 'blabla',   
-    // Here you can use the two parameters you chose for your payment-page. In this case full name and phone number.
-    // You can send them here, or not and the user will fill them in
+        // Here you can use the two parameters you chose for your payment-page.
+        // In this case full name and phone number.
+        // You can send them here, or not and the user will fill them in
     "pageField[fullName]": 'John Smit',
     "pageField[phone]": '0500000000',
   };

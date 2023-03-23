@@ -19,7 +19,8 @@ const options = {
 }
 
 async function getPaymentLink (){
-   const response = await fetch(`${apiUrl}/api/payment/getPaymentLink`, options); //response in format {isSuccess: boolean, message: string (link or error-message)}
+   const response = await fetch(`${apiUrl}/api/payment/getPaymentLink`, options);
+   //response in format {isSuccess: boolean, message: string (link or error-message)}
    const data = await response.json();
    console.log(data.message);
   window.open(data.message);
